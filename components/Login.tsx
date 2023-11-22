@@ -1,6 +1,6 @@
-'use client'
+"use client"
 import axios from '@/axios';
-import { NextUIProvider } from '@nextui-org/react';
+import { Checkbox, NextUIProvider } from '@nextui-org/react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, useEffect, useState } from 'react';
@@ -25,7 +25,7 @@ const Login = (props: any) => {
     }
   }, [])
 
-  const formClassName = `block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`
+  const formClassName = "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -37,7 +37,7 @@ const Login = (props: any) => {
     try {
       const result = await axios.post("/auth/signin", formData)
       localStorage.setItem("token", result.data.access_token)
-      router.push("/users")
+      router.push("/product")
     } catch (error: any) {
       console.error(error, "<<-- Error in user signup")
     }
@@ -100,18 +100,12 @@ const Login = (props: any) => {
                 />
 
                 <div className='mt-2 flex justify-between items-center'>
-                  <div>
-                    <input
-                      id="check"
-                      type="checkbox"
-                      checked={showPassword}
-                      onChange={(e) => setShowPassword((prev) => !prev)}
-                    />
-                    <label htmlFor="check" className='text-sm ml-1 text-gray-500'>Show Password</label>
+                  <div className='text-sm'>
+                    <Checkbox size='sm' onChange={() => setShowPassword(!showPassword)} isSelected={showPassword}>Show Password</Checkbox>
                   </div>
 
                   <div className="text-sm">
-                    <Link href="/forgot-password" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <Link href="/forgot-password" className="font-semibold text-indigo-600 hover:text-indigo-500 select-none">
                       Forgot password?
                     </Link>
                   </div>
@@ -129,6 +123,11 @@ const Login = (props: any) => {
               </button>
             </div>
           </form>
+          <div className="text-sm mt-2 text-end">
+            <Link href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
+              <p>Dont have account? Sign up</p>
+            </Link>
+          </div>
         </div>
       </div>
     </NextUIProvider>
