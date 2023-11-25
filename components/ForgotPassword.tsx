@@ -4,6 +4,7 @@ import { Image, NextUIProvider } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import cryptojs from "crypto-js"
+import logger from '@/utils/logger'
 
 const ForgotPassword = () => {
     const router = useRouter()
@@ -23,7 +24,7 @@ const ForgotPassword = () => {
             const encryptedPass = cryptojs.AES.encrypt(result.data.password, "my-proj").toString()
             router.push(`/login?email=${formData.email}&passkey=${encryptedPass}`)
         } catch (error: any) {
-            console.error(error, "<<-- Error in user signup")
+            logger.error(error, "<<-- Error in user signup")
         }
     }
 

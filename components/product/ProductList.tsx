@@ -1,5 +1,6 @@
 'use client'
 import axios from '@/axios';
+import logger from '@/utils/logger';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import React, { useEffect } from 'react'
 
@@ -8,9 +9,9 @@ const ProductList = () => {
     const getProducts = async () => {
         try {
             const products = await axios.get("/products")
-            console.log(products.data, "<<-- products")
+            logger.info(products.data, "<<-- products")
         } catch (error) {
-            console.error(error, "<<-- error in get all products")
+            logger.error(error, "<<-- error in get all products")
         }
     }
 
@@ -68,9 +69,9 @@ const ProductList = () => {
             {/* Product header slideshow */}
 
             {/* Product list */}
-            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4 mt-4">
+            <div className="gap-5 grid grid-cols-2 sm:grid-cols-4 mt-4 px-5">
                 {list.map((item, index) => (
-                    <Card isBlurred shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
+                    <Card isBlurred shadow="sm" key={index} isPressable onPress={() => logger.info("item pressed")}>
                         <CardBody className="overflow-visible p-0">
                             <Image
                                 shadow="sm"

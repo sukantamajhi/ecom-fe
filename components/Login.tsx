@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import crypto from "crypto-js"
+import logger from '@/utils/logger';
 
 const Login = (props: any) => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const Login = (props: any) => {
       localStorage.setItem("token", result.data.access_token)
       router.push("/product")
     } catch (error: any) {
-      console.error(error, "<<-- Error in user signup")
+      logger.error(error, "<<-- Error in user signup")
     }
   }
 
@@ -133,20 +134,5 @@ const Login = (props: any) => {
     </NextUIProvider>
   )
 };
-
-export async function getServerSideProps() {
-  try {
-    console.log("This block called")
-    const response = await axios.get('/users');
-    const users = response.data; // Assuming your data is in the "data" property of the response
-
-    console.log(users, '<<-- response.data');
-
-    return { props: { users } };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return { props: { users: null } };
-  }
-}
 
 export default Login;

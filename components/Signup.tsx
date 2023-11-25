@@ -29,7 +29,7 @@ export default function Signup() {
                 router.push(`/login?email=${formData.email}&passkey=${encryptedPass}`)
             }
         } catch (error: any) {
-            console.error(error, "<<-- Error in user signup")
+            logger.error(error, "<<-- Error in user signup")
         }
     }
 
